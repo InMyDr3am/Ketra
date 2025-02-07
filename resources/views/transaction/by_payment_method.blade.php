@@ -17,6 +17,7 @@
                 <tr>
                     <th>Payment Method</th>
                     <th>Total</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -24,7 +25,7 @@
                     <tr>
                         <td>{{ $sales['payment_method'] }}</td>
                         <td>{{ number_format($sales['total_sales'], 0, ',', '.') }}</td>
-                        <td>
+                        <td>Detail</td>
                     </tr>
                 @empty
                     <tr>

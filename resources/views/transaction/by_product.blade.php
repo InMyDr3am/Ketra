@@ -19,6 +19,7 @@
                 <th>Product Name</th>
                 <th>Transaction Status</th>
                 <th>Total Sales</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
@@ -33,6 +34,7 @@
                         </span>
                     </td>
                     <td>{{ number_format($summary['total_sales'], 0, ',', '.') }}</td>
+                    <td>Detail</td>
                 </tr>
             @endforeach
         </tbody>
