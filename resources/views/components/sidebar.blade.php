@@ -58,7 +58,7 @@
               <a class="nav-link pl-3" href="/transactions/by-product"><span class="ml-1 item-text">Data By Products</span></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link pl-3" href="./ui-icons.html"><span class="ml-1 item-text">Icons</span></a>
+              <a class="nav-link pl-3" href="/transactions/by-payment-method"><span class="ml-1 item-text">Data By Payment Method</span></a>
             </li>
             <li class="nav-item">
               <a class="nav-link pl-3" href="./ui-buttons.html"><span class="ml-1 item-text">Buttons</span></a>
