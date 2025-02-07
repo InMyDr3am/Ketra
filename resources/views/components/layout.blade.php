@@ -6,7 +6,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" href="favicon.ico">
-    <title>Tiny Dashboard - A Bootstrap Dashboard Template</title>
+    <title>Ketra - Kelola Transaksi</title>
     <!-- Simple bar CSS -->
     <link rel="stylesheet" href="{{ asset('assets/layout/light/css/simplebar.css') }}">
     <!-- Fonts CSS -->

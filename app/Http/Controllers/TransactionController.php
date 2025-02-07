@@ -145,32 +145,6 @@ class TransactionController extends Controller
 
             return view('transaction.by_product', compact('transactions','salesSummary'));
 
-            //---------------------------------------
-            // Olah data transaksi
-            // $transactions = collect($json['data'])
-            // ->filter(fn($transaction) => !empty($transaction['detail']['transaction_status']))
-            // ->map(function ($transaction, $order_id) {
-            //     return [
-            //         'order_id' => $order_id,
-            //         'product_name' => $transaction['product']['name'] ?? "Unknown Product",
-            //         'amount' => $transaction['payment']['amount'] ?? 0,
-            //         'transaction_status' => strtolower($transaction['detail']['transaction_status']) ?? "unknown"
-            //     ];
-            // });
-
-            // Grouping & Sum berdasarkan product_name dan transaction_status
-            // $salesSummary = $transactions
-            // ->groupBy(['product_name', 'transaction_status'])
-            // ->map(function ($groupedByStatus) {
-            //     return $groupedByStatus->map(function ($group) {
-            //         return [
-            //             'total_sales' => $group->sum('amount')
-            //         ];
-            //     });
-            // });
-
-            //---------------------------------------
-
         }
     
         return response()->json([
