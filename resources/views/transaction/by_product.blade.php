@@ -11,27 +11,31 @@
             </div>
         @endif
 
-        <!-- Tabel Transaksi -->
-        <table class="table table-bordered table-striped">
-            <thead class="table-dark">
+    <!-- Tabel Ringkasan Penjualan Berdasarkan Status -->
+    <h3 class="mt-5">Sales Summary per Product & Status</h3>
+    <table class="table table-bordered table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>Product Name</th>
+                <th>Transaction Status</th>
+                <th>Total Sales</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach($salesSummary as $summary)
                 <tr>
-                    <th>Product Name</th>
-                    <th>Total</th>
+                    <td>{{ $summary['product_name'] }}</td>
+                    <td>
+                        <span class="badge 
+                            {{ $summary['transaction_status'] == 'refund' ? 'bg-warning' : 
+                               ($summary['transaction_status'] == 'settlement' ? 'bg-success' : 'bg-danger') }}">
+                            {{ ucfirst($summary['transaction_status']) }}
+                        </span>
+                    </td>
+                    <td>{{ number_format($summary['total_sales'], 0, ',', '.') }}</td>
                 </tr>
-            </thead>
-            <tbody>
-                @forelse($salesSummary as $sales)
-                    <tr>
-                        <td>{{ $sales['product_name'] }}</td>
-                        <td>{{ $sales['total_sales'] }}</td>
-                        <td>
-                    </tr>
-                @empty
-                    <tr>
-                        <td colspan="9" class="text-center">No Transactions Found</td>
-                    </tr>
-                @endforelse
-            </tbody>
-        </table>
+            @endforeach
+        </tbody>
+    </table>
     </div>
 </x-layout>

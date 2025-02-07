@@ -93,10 +93,10 @@ class TransactionController extends Controller
             // Ambil dan filter data transaksi
             $transactions = collect($json['data'])
                 ->filter(function ($transaction) {
-                    return $transaction['detail']['transaction_status'] !== 'cancel';
+                    return in_array(strtolower($transaction['detail']['transaction_status']), ['settlement', 'cancel', 'refund']);
                 })
-                ->map(function ($transaction, $order_id) {
-                    return [
+            ->map(function ($transaction, $order_id) {
+                return [
                         'order_id' => $order_id,
                         'product' => [
                             'device_id' => $transaction['product']['device_id'] ?? "",
@@ -118,7 +118,8 @@ class TransactionController extends Controller
                             'timestamp' => $transaction['time']['timestamp'] ?? null,
                             'firestore_seconds' => $transaction['time']['firestore_timestamp']['_seconds'] ?? null
                         ],
-                        'transaction_status' => $transaction['detail']['transaction_status'] ?? "",
+                        // 'transaction_status' => $transaction['detail']['transaction_status'] ?? "",
+                        'transaction_status' => strtolower($transaction['detail']['transaction_status']) ?? "unknown",
                         'refund' => [
                             'amount' => $transaction['detail']['refund_amount'] ?? 0,
                             'refund_time' => $transaction['detail']['refund_time'] ?? null
@@ -128,23 +129,47 @@ class TransactionController extends Controller
                     ];
                 });
 
-            // Grouping & Sum berdasarkan product_name
+            // Grouping & Sum berdasarkan product_name & penjualan perstatus
             $salesSummary = $transactions
-                ->groupBy('product_name') // Mengelompokkan berdasarkan nama produk
-                ->map(function ($group) {
-                    return [
-                        'product_name' => $group->first()['product_name'],
-                        'total_sales' => $group->sum('amount') // Menjumlahkan total amount
-                    ];
-                })->values();
-    
-            // return response()->json([
-            //     'success' => true,
-            //     'message' => $json['message'],
-            //     'data' => $transactions->values()
-            // ], 200, [], JSON_PRETTY_PRINT);
+            ->groupBy(function ($item) {
+                return $item['product_name'] . '|' . $item['transaction_status'];
+            })
+            ->map(function ($group) {
+                return [
+                    'product_name' => $group->first()['product_name'],
+                    'transaction_status' => $group->first()['transaction_status'],
+                    'total_sales' => $group->sum('amount')
+                ];
+            })
+            ->values(); // Menghapus kunci agar lebih mudah ditampilkan di blade
 
             return view('transaction.by_product', compact('transactions','salesSummary'));
+
+            //---------------------------------------
+            // Olah data transaksi
+            // $transactions = collect($json['data'])
+            // ->filter(fn($transaction) => !empty($transaction['detail']['transaction_status']))
+            // ->map(function ($transaction, $order_id) {
+            //     return [
+            //         'order_id' => $order_id,
+            //         'product_name' => $transaction['product']['name'] ?? "Unknown Product",
+            //         'amount' => $transaction['payment']['amount'] ?? 0,
+            //         'transaction_status' => strtolower($transaction['detail']['transaction_status']) ?? "unknown"
+            //     ];
+            // });
+
+            // Grouping & Sum berdasarkan product_name dan transaction_status
+            // $salesSummary = $transactions
+            // ->groupBy(['product_name', 'transaction_status'])
+            // ->map(function ($groupedByStatus) {
+            //     return $groupedByStatus->map(function ($group) {
+            //         return [
+            //             'total_sales' => $group->sum('amount')
+            //         ];
+            //     });
+            // });
+
+            //---------------------------------------
 
         }
     

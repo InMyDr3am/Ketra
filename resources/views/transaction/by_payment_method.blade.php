@@ -23,7 +23,7 @@
                 @forelse($salesSummary as $sales)
                     <tr>
                         <td>{{ $sales['payment_method'] }}</td>
-                        <td>{{ $sales['total_sales'] }}</td>
+                        <td>{{ number_format($sales['total_sales'], 0, ',', '.') }}</td>
                         <td>
                     </tr>
                 @empty
