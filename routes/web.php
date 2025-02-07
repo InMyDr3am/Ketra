@@ -13,3 +13,4 @@ Route::get('/', function () {
 
 // Route::resource('/transactions', \App\Http\Controllers\TransactionController::class);
 Route::get('/transactions', [TransactionController::class, 'index'])->name('transactions.index');
+Route::get('/transactions/by-product', [TransactionController::class, 'byProduct'])->name('transactions.byproduct');

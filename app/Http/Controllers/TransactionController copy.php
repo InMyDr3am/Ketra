@@ -20,72 +20,6 @@ class TransactionController extends Controller
 
         // Kirim request POST ke API
         $response = Http::post($apiUrl, $payload);
-        
-        if ($response->successful()) {
-            $json = $response->json();
-    
-            // Ambil dan filter data transaksi
-            $transactions = collect($json['data'])
-                ->filter(function ($transaction) {
-                    return $transaction['detail']['transaction_status'] !== 'cancel';
-                })
-                ->map(function ($transaction, $order_id) {
-                    return [
-                        'order_id' => $order_id,
-                        'product' => [
-                            'device_id' => $transaction['product']['device_id'] ?? "",
-                            'name' => $transaction['product']['name'] ?? "",
-                            'sku' => $transaction['product']['sku'] ?? "",
-                            'column' => $transaction['product']['column'] ?? "",
-                            'location' => $transaction['product']['location'] ?? "",
-                        ],
-                        'payment' => [
-                            'amount' => $transaction['payment']['amount'] ?? 0,
-                            'method' => $transaction['payment']['method'] ?? "",
-                            'nett' => $transaction['payment']['nett'] ?? 0,
-                            'platform_fee' => $transaction['payment']['fee']['platform_sharing_revenue'] ?? 0,
-                            'session_id' => $transaction['payment']['session_id'] ?? "",
-                            'detail_id' => $transaction['payment']['detail']['id'] ?? "",
-                            'detail_timestamp' => $transaction['payment']['detail']['ts'] ?? null
-                        ],
-                        'time' => [
-                            'timestamp' => $transaction['time']['timestamp'] ?? null,
-                            'firestore_seconds' => $transaction['time']['firestore_timestamp']['_seconds'] ?? null
-                        ],
-                        'transaction_status' => $transaction['detail']['transaction_status'] ?? "",
-                        'refund' => [
-                            'amount' => $transaction['detail']['refund_amount'] ?? 0,
-                            'refund_time' => $transaction['detail']['refund_time'] ?? null
-                        ],
-                        'product_name' => $transaction['product']['name'] ?? "",
-                        'amount' => $transaction['payment']['amount'] ?? 0
-                    ];
-                });
-
-            return view('transaction.index', compact('transactions'));
-
-        }
-    
-        return response()->json([
-            'success' => false,
-            'message' => 'Gagal mengambil data transaksi'
-        ], $response->status());
-        // return view('buyers.index', compact('buyers'));
-    }
-
-    public function byProduct()
-    {
-        // URL API yang akan diakses
-        $apiUrl = "https://login-bir3msoyja-et.a.run.app"; // Ganti dengan API yang benar
-
-        // Data yang akan dikirim dalam format JSON
-        $payload = [
-            'username' => 'user',
-            'password' => 'password'
-        ];
-
-        // Kirim request POST ke API
-        $response = Http::post($apiUrl, $payload);
 
         // Cek status response
         // if ($response->successful()) {
@@ -174,7 +108,7 @@ class TransactionController extends Controller
             //     'data' => $transactions->values()
             // ], 200, [], JSON_PRETTY_PRINT);
 
-            return view('transaction.by_product', compact('transactions','salesSummary'));
+            return view('transaction.index', compact('transactions','salesSummary'));
 
         }
     
@@ -184,4 +118,6 @@ class TransactionController extends Controller
         ], $response->status());
         // return view('buyers.index', compact('buyers'));
     }
+    
+    
 }
