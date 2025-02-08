@@ -203,6 +203,50 @@ class TransactionController extends Controller
         return back()->with('error', 'Failed to fetch transaction details.');
     }
 
+    public function transactionDetailDevice(Request $request)
+    {
+        $deviceId = $request->query('device_id');
+        $transactionStatus = $request->query('transaction_status');
+
+        $apiUrl = "https://login-bir3msoyja-et.a.run.app";
+        $payload = [
+            'username' => 'user',
+            'password' => 'password'
+        ];
+        $response = Http::post($apiUrl, $payload);
+
+        if ($response->successful()) {
+            $json = $response->json();
+
+            // Ambil dan filter data transaksi sesuai dengan produk dan status yang dipilih
+            $transactions = collect($json['data'])
+                ->filter(function ($transaction) use ($deviceId, $transactionStatus) {
+                    return strtolower($transaction['product']['device_id'] ?? '') == strtolower($deviceId)
+                        && strtolower($transaction['detail']['transaction_status'] ?? '') == strtolower($transactionStatus);
+                })
+                ->map(function ($transaction, $order_id) {
+                    return [
+                        'order_id' => $order_id,
+                        'product_name' => $transaction['product']['name'] ?? "Unknown",
+                        'transaction_status' => strtolower($transaction['detail']['transaction_status']) ?? "unknown",
+                        'amount' => $transaction['payment']['amount'] ?? 0,
+                        'payment_method' => $transaction['payment']['method'] ?? "",
+                        'transaction_time' => $transaction['time']['timestamp'] ?? null
+                    ];
+                });
+
+            $perPage = 20;
+            $currentPage = LengthAwarePaginator::resolveCurrentPage();
+            $currentItems = $transactions->slice(($currentPage - 1) * $perPage, $perPage)->values();
+            $paginatedTransactions = new LengthAwarePaginator($currentItems, $transactions->count(), $perPage);
+            $paginatedTransactions->setPath($request->url());    
+
+            return view('transaction.detaildevice', compact('paginatedTransactions', 'deviceId', 'transactionStatus'));
+        }
+
+        return back()->with('error', 'Failed to fetch transaction details.');
+    }
+
     public function transactionDetailPayment(Request $request)
     {
         $paymentMethod = $request->query('payment_method');
@@ -331,6 +375,7 @@ class TransactionController extends Controller
         ], $response->status());
 
     }
+
     public function byPaymentMethod(Request $request)
     {
         

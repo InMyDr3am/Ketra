@@ -1,5 +1,5 @@
 <x-layout>
-    <h3 class="page-title">All Transaction Data</h3>
+    <h3 class="page-title">All Data Transaction</h3>
     <div class="mb-2 align-items-center">
         <div class="card shadow mb-4">
             <div class="card-body">
