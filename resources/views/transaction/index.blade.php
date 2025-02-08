@@ -1,4 +1,5 @@
 <x-layout>
+    
     {{-- <x-slot:title>{{ $title }}</x-slot:title> --}}
     <h3 class="page-title">All Transaction Data</h3>
     <div class="mb-2 align-items-center">
@@ -31,7 +32,8 @@
                 </tr>
             </thead>
             <tbody style="background-color: #F5F5F5; color: #000;"> <!-- Putih ke abu-abu -->
-                @forelse($transactions as $transaction)
+                @forelse($paginatedTransactions as $transaction)
+                    @include('transaction.m-detail-alldata')
                     <tr>
                         <td class="text-center fw-bold">{{ $loop->iteration }}</td>
                         <td>{{ $transaction['order_id'] }}</td>
@@ -50,9 +52,14 @@
                         {{-- <td>{{ number_format($transaction['refund']['amount'], 0, ',', '.') }}</td> --}}
                         <td class="text-center">
                             <button class="btn btn-sm" 
-                                style="background-color: #000; color: #FFF; border-radius: 8px;">
+                                style="background-color: #000; color: #FFF; border-radius: 8px;"
+                                data-toggle="modal" data-target="#modal-detAllData{{ $transaction['order_id'] }}">
                                 Detail
                             </button>
+                            {{-- <button class="btn btn-primary btn-sm" title="Detail"
+                            data-toggle="modal" data-target="#modal-detAllData{{ $transaction['order_id'] }}">
+                            <i class="fas fa-duotone fa-eye"></i>
+                        </button> --}}
                         </td>
                     </tr>
                 @empty
@@ -62,5 +69,19 @@
                 @endforelse
             </tbody>
         </table>
+        {{-- <div class="d-flex justify-content-center mt-4">
+            {{ $paginatedTransactions->links('pagination::simple-bootstrap-5') }}
+        </div> --}}
+        <div class="d-flex justify-content-between align-items-center my-3">
+            <p class="mb-0">
+                Showing {{ $paginatedTransactions->firstItem() }} - {{ $paginatedTransactions->lastItem() }} 
+                of {{ $paginatedTransactions->total() }} transactions
+            </p>
+        </div>
+        
+        <!-- Tampilkan Pagination -->
+        <div class="d-flex justify-content-center mt-3">
+            {{ $paginatedTransactions->links() }}
+        </div>
     </div>
 </x-layout>
