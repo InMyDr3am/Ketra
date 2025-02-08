@@ -157,7 +157,7 @@ class TransactionController extends Controller
     public function byPaymentMethod()
     {
         // URL API yang akan diakses
-        $apiUrl = "https://login-bir3msoyja-et.a.run.app"; // Ganti dengan API yang benar
+        $apiUrl = "https://login-bir3msoyja-et.a.run.app";
 
         // Data yang akan dikirim dalam format JSON
         $payload = [
@@ -218,12 +218,6 @@ class TransactionController extends Controller
                         'total_sales' => $group->sum('amount') // Menjumlahkan total amount
                     ];
                 })->values();
-    
-            // return response()->json([
-            //     'success' => true,
-            //     'message' => $json['message'],
-            //     'data' => $transactions->values()
-            // ], 200, [], JSON_PRETTY_PRINT);
 
             return view('transaction.by_payment_method', compact('transactions','salesSummary'));
 
@@ -233,6 +227,6 @@ class TransactionController extends Controller
             'success' => false,
             'message' => 'Gagal mengambil data transaksi'
         ], $response->status());
-        // return view('buyers.index', compact('buyers'));
     }
+    
 }

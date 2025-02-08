@@ -7,6 +7,7 @@
     <meta name="author" content="">
     <link rel="icon" href="favicon.ico">
     <title>Ketra - Kelola Transaksi</title>
+    
     <!-- Simple bar CSS -->
     <link rel="stylesheet" href="{{ asset('assets/layout/light/css/simplebar.css') }}">
     <!-- Fonts CSS -->
