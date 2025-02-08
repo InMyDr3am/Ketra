@@ -15,6 +15,8 @@ Route::get('/', function () {
 // Route::resource('/transactions', \App\Http\Controllers\TransactionController::class);
 Route::get('/transactions', [TransactionController::class, 'index'])->name('transactions.index');
 Route::get('/transactions/by-product', [TransactionController::class, 'byProduct'])->name('transactions.byproduct');
+Route::get('/transactions/detail', [TransactionController::class, 'transactionDetail'])->name('transactions.detail');
+Route::get('/transactions/detail-payment', [TransactionController::class, 'transactionDetailPayment'])->name('transactions.detailpayment');
 Route::get('/transactions/by-payment-method', [TransactionController::class, 'byPaymentMethod'])->name('transactions.bypaymentmethod');
 
 Route::controller(LoginRegisterController::class)->group(function() {

@@ -1,5 +1,5 @@
 <x-layout>
-    <h3 class="page-title">Transaction data based on product and transaction status</h3>
+    <h3 class="page-title">Transaction Details for {{ $productName }} with Transaction Status ({{ ucfirst($transactionStatus) }})</h3>
     <div class="mb-2 align-items-center">
         <div class="card shadow mb-4">
             <div class="card-body">
@@ -15,34 +15,22 @@
                                 <thead style="background-color: #4A4A4A; color: #FFF;"> 
                                     <tr>
                                         <th class="text-center">No.</th>
-                                        <th>Product Name</th>
-                                        <th>Transaction Status</th>
+                                        <th>Order ID</th>
+                                        <th>Payment Method</th>
                                         <th>Total Amount</th>
-                                        <th class="text-center">Action</th>
+                                        <th>Transaction Time</th>
                                     </tr>
                                 </thead>
-                                <tbody style="background-color: #F5F5F5; color: #000;"> 
-                                    @foreach($paginatedTransactions as $summary)
+                                <tbody style="background-color: #F5F5F5; color: #000;">
+                                    @foreach($paginatedTransactions as $transaction)
                                         <tr>
                                             <td class="text-center fw-bold">{{ $loop->iteration }}</td>
-                                            <td class="fw-semibold">{{ $summary['product_name'] ? $summary['product_name'] : 'Unknown Product'}} </td>
-                                            <td>
-                                                <span class="badge rounded-pill 
-                                                    {{ $summary['transaction_status'] == 'refund' ? 'bg-warning' : 
-                                                    ($summary['transaction_status'] == 'settlement' ? 'bg-success' : 'bg-danger') }}">
-                                                    {{ ucfirst($summary['transaction_status']) }}
-                                                </span>
-                                            </td>
+                                            <td>{{ $transaction['order_id'] }}</td>
+                                            <td>{{ $transaction['payment_method'] }}</td>
                                             <td class="text-end fw-bold">
-                                                Rp {{ number_format((float) $summary['total_sales'], 0, ',', '.') }}
+                                                Rp {{ number_format((float) $transaction['amount'], 0, ',', '.') }}
                                             </td>
-                                            <td class="text-center">
-                                                <a href="{{ route('transactions.detail', ['product_name' => $summary['product_name'], 'transaction_status' => $summary['transaction_status']]) }}" 
-                                                   class="btn btn-sm" 
-                                                   style="background-color: #000; color: #FFF; border-radius: 8px;">
-                                                    View
-                                                </a>
-                                            </td>
+                                            <td>{{ $transaction['transaction_time'] ?? 'N/A' }}</td>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -56,6 +44,7 @@
                             <div class="d-flex justify-content-center mt-3">
                                 {{ $paginatedTransactions->links() }}
                             </div>
+                            <a href="{{ route('transactions.byproduct') }}" class="btn btn-dark mt-3">Back</a>
                         </div>
                     </div>
                 </div>

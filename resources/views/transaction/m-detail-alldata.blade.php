@@ -16,7 +16,7 @@
                             <div class="form-group">
                                 <label>Order ID</label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control" name="name" required value="{{ $transaction['order_id'] }}">
+                                    <input type="text" class="form-control" name="name" required value="{{ $transaction['order_id'] }}" readonly>
                                 </div>
                             </div>
                         </div>
@@ -24,7 +24,7 @@
                             <div class="form-group">
                                 <label>Product Name</label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control" name="name" required value="{{ $transaction['product']['name'] ? $transaction['product']['name'] : ' - Unknown -' }}">
+                                    <input type="text" class="form-control" name="name" required value="{{ $transaction['product']['name'] ? $transaction['product']['name'] : ' - Unknown -' }}" readonly>
                                 </div>
                             </div>
                         </div>
@@ -32,7 +32,7 @@
                             <div class="form-group">
                                 <label>Device ID</label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control" name="name" required value="{{ $transaction['product']['device_id'] }}">
+                                    <input type="text" class="form-control" name="name" required value="{{ $transaction['product']['device_id'] }}" readonly>
                                 </div>
                             </div>
                         </div>
@@ -40,7 +40,7 @@
                             <div class="form-group">
                                 <label>Column</label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control" name="name" required value="{{ $transaction['product']['column'] ? $transaction['product']['column'] : ' - Unknown - ' }}">
+                                    <input type="text" class="form-control" name="name" required value="{{ $transaction['product']['column'] ? $transaction['product']['column'] : ' - Unknown - ' }}" readonly>
                                 </div>
                             </div>
                         </div>
@@ -48,7 +48,7 @@
                             <div class="form-group">
                                 <label>SKU</label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control" name="name" required value="{{ $transaction['product']['sku'] ? $transaction['product']['sku'] : ' - Unknown - ' }}">
+                                    <input type="text" class="form-control" name="name" required value="{{ $transaction['product']['sku'] ? $transaction['product']['sku'] : ' - Unknown - ' }}" readonly>
                                 </div>
                             </div>
                         </div>
@@ -56,7 +56,7 @@
                             <div class="form-group">
                                 <label>Amount</label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control" name="name" required value="{{ number_format($transaction['payment']['amount'], 0, ',', '.') }}">
+                                    <input type="text" class="form-control" name="name" required value="{{ number_format($transaction['payment']['amount'], 0, ',', '.') }}" readonly>
                                 </div>
                             </div>
                         </div>
@@ -64,7 +64,7 @@
                             <div class="form-group">
                                 <label>Payment Method</label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control" name="name" required value="{{ $transaction['payment']['method'] }}">
+                                    <input type="text" class="form-control" name="name" required value="{{ $transaction['payment']['method'] }}" readonly>
                                 </div>
                             </div>
                         </div>
@@ -72,7 +72,7 @@
                             <div class="form-group">
                                 <label>Status</label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control" name="name" required value="{{ ucfirst($transaction['transaction_status']) }}">
+                                    <input type="text" class="form-control" name="name" required value="{{ ucfirst($transaction['transaction_status']) }}" readonly>
                                 </div>
                             </div>
                         </div>

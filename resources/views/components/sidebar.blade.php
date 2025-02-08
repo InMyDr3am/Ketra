@@ -15,7 +15,7 @@
             <i class="fe fe-home fe-16"></i>
             <span class="ml-3 item-text">Dashboard</span><span class="sr-only">(current)</span>
           </a>
-          <ul class="collapse list-unstyled pl-4 w-100" id="dashboard">
+          {{-- <ul class="collapse list-unstyled pl-4 w-100" id="dashboard">
             <li class="nav-item active">
               <a class="nav-link pl-3" href="./index.html"><span class="ml-1 item-text">Default</span></a>
             </li>
@@ -31,11 +31,11 @@
             <li class="nav-item">
               <a class="nav-link pl-3" href="./dashboard-system.html"><span class="ml-1 item-text">Systems</span></a>
             </li>
-          </ul>
+          </ul> --}}
         </li>
       </ul>
       <p class="text-muted nav-heading mt-4 mb-1">
-        <span>Components</span>
+        <span>Menu</span>
       </p>
       <ul class="navbar-nav flex-fill w-100 mb-2">
         <li class="nav-item dropdown">
@@ -49,15 +49,18 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link pl-3" href="/transactions/by-product"><span class="ml-1 item-text">Data By Products</span></a>
+              <a class="nav-link pl-3" href="/transactions/by-product"><span class="ml-1 item-text">By Product</span></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link pl-3" href="/transactions/by-payment-method"><span class="ml-1 item-text">Data By Payment Method</span></a>
+              <a class="nav-link pl-3" href="/transactions/by-device"><span class="ml-1 item-text">By Device</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link pl-3" href="/transactions/by-payment-method"><span class="ml-1 item-text">By Payment Method</span></a>
             </li>
           </ul>
         </li>
       </ul>
-      <p class="text-muted nav-heading mt-4 mb-1">
+      {{-- <p class="text-muted nav-heading mt-4 mb-1">
         <span>Apps</span>
       </p>
       <ul class="navbar-nav flex-fill w-100 mb-2">
@@ -73,7 +76,7 @@
             <a class="nav-link pl-3" href="./profile-notification.html"><span class="ml-1">Notifications</span></a>
           </ul>
         </li>
-      </ul>
+      </ul> --}}
       <p class="text-muted nav-heading mt-4 mb-1">
         <span>Documentation</span>
       </p>
@@ -85,10 +88,10 @@
           </a>
         </li>
       </ul>
-      <div class="btn-box w-100 mt-4 mb-1">
+      {{-- <div class="btn-box w-100 mt-4 mb-1">
         <a href="https://themeforest.net/item/tinydash-bootstrap-html-admin-dashboard-template/27511269" target="_blank" class="btn mb-2 btn-primary btn-lg btn-block">
           <i class="fe fe-shopping-cart fe-12 mx-2"></i><span class="small">Buy now</span>
         </a>
-      </div>
+      </div> --}}
     </nav>
   </aside>
